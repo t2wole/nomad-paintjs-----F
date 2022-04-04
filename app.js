@@ -1,5 +1,6 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext('2d');
+const colors = document.getElementsByClassName("jsColor");
 
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
@@ -42,6 +43,12 @@ function enterMouse(){
     ctx.beginPath();
 }
 
+// 기존의 strokeStyle은 검정이었지만 color를 선택해주면 선택된 컬러로 바귐
+function handleColorClick(event) {
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color;
+}
+
 if(canvas){
     canvas.addEventListener("mousemove" , onMouseMove);
     canvas.addEventListener("mousedown" , startPainting);
@@ -49,3 +56,5 @@ if(canvas){
     canvas.addEventListener("mouseleave", leaveMouse);
     canvas.addEventListener("mouseenter", enterMouse);
 }
+
+Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
